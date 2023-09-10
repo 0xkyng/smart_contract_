@@ -28,13 +28,23 @@ async function main() {
     await contractB.connect(impersonatedSigner).approve(swap, unlimitedApprovalTokenB)
 
 
-    const addTokenA = ethers.parseUnits("70")
-    const addtokenB = ethers.parseUnits("100")
+    const amountA = ethers.parseEther("70")
+    const amountB = ethers.parseEther("100")
 
     
+    const swapA = ethers.parseEther("30")
+    const SwapB = ethers.parseEther("70")
 
+    await swap.connect(impersonatedSigner).addLiquidity(amountA, amountB)
+    console.log("Liquidity added");
 
-    
+    await swap.connect(impersonatedSigner).swapAforB(swapA)
+    console.log(`balance of tokenB signer after swap: ${await contractB.balanceOf(signer)}`);
+
+    await swap.connect(impersonatedSigner).swapBforA(SwapB)
+    console.log(`balance of tokenA signer after swap: ${await contractA.balanceOf(signer)}`);
+
+    await swap.connect(impersonatedSigner).removeLiquidity(amountA, amountB)  
  }
 
  main().catch((error) => {
