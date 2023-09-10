@@ -9,12 +9,21 @@ async function main() {
   });
 
   await tokenSwap.waitForDeployment();
-
-  let connetTokenA = await ethers.getContractAt("ITokenA", "TokenA")
-  let connetTokenB = await ethers.getContractAt("ITokenB", "TokenB")
-
   console.log(`Deployed at ${tokenSwap.target}`)
 
+  let amountA = ethers.getUint("50")
+  let amountB = ethers.getUint("200")
+
+  let contractA = await ethers.getContractAt("ITokenA", "TokenA")
+  const signTokenA = await ethers.getImpersonatedSigner(tokenA)
+  await contractA.connect(signTokenA).approve(tokenSwap, amountA)
+
+  let contractB = await ethers.getContractAt("TokenB", "TokenB")
+  const signTokenB = await ethers.getImpersonatedSigner(tokenB)
+  await contractB.connect(signTokenB).approve(tokenSwap, amountB)
+     
+
+  await tokenSwap.connect(signTokenA).addLiquidity(amountA, amountB)
 
  }
 
