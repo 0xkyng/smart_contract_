@@ -1,4 +1,5 @@
 import { ethers } from "hardhat";
+import { TokenB } from "../typechain-types";
 
 async function main() {
     const tokenA = "0x8178831cca0835807f3C9D020776d0a20f28e8b2"
@@ -8,6 +9,9 @@ async function main() {
   });
 
   await tokenSwap.waitForDeployment();
+
+  let connetTokenA = await ethers.getContractAt("ITokenA", "TokenA")
+  let connetTokenB = await ethers.getContractAt("ITokenB", "TokenB")
 
   console.log(`Deployed at ${tokenSwap.target}`)
 
