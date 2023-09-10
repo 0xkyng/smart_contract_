@@ -16,4 +16,4 @@ async function main() {
         process.exitCode = 1;
 })
 
-// TpkenB was deployed at: 0x2c5ac3e6897A02F40bCbBD95aBE949d76ed94748
+// TpkenB was deployed at: 0x5FbDB2315678afecb367f032d93F642f64180aa3

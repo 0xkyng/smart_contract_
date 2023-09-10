@@ -2,8 +2,8 @@ import { ethers } from "hardhat";
 import { TokenB } from "../typechain-types";
 
 async function main() {
-    const tokenA = "0x8178831cca0835807f3C9D020776d0a20f28e8b2"
-    const tokenB = "0x2c5ac3e6897A02F40bCbBD95aBE949d76ed94748"
+    const tokenA = "0x5FbDB2315678afecb367f032d93F642f64180aa3"
+    const tokenB = "0x5FbDB2315678afecb367f032d93F642f64180aa3"
     
   const tokenSwap = await ethers.deployContract("TokenSwap", [tokenA, tokenB], {
   });
@@ -23,7 +23,9 @@ async function main() {
   await contractB.connect(signTokenB).approve(tokenSwap, amountB)
      
 
-  await tokenSwap.connect(signTokenA).addLiquidity(amountA, amountB)
+  const swapAforB = await tokenSwap.connect(signTokenA).addLiquidity(amountA, amountB)
+
+  const swapBforA = await tokenSwap.connect(signTokenB).addLiquidity(amountB, amountA)
 
  }
 
