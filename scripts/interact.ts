@@ -2,9 +2,9 @@ import { ethers, network } from "hardhat";
 
 
 async function main() {
-    const tokenA = "0xa61F043662002F9F6D2891F3120D9faA4672618B"
-    const tokenB = "0x4A2BB47948CD384F088C14489d880f60dDA6D53e"
-    const tokenSwap = "0xd31c46e577DEc42B691B6BC2De7F2D5c202102bC"
+    const tokenA = "0x9d2a9ADFbE03Bf043dc806e4B79b34e3132b6C08"
+    const tokenB = "0x7de1e6ae6d54F747CaCF92957954c306DCeABfd1"
+    const tokenSwap = "0x1c5f9308aa0ceeEf9646f7baD0421239727567a4"
 
     const signer ="0x9cDF5ce3c9Ea71ECC8fb7C3A17ed7B6c74F9C5F0"
 
