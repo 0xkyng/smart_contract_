@@ -3,7 +3,7 @@ import { ethers } from "hardhat";
 async function main() {
     const [signer] = await ethers.getSigners()
     
-  const tokenA = await ethers.deployContract("TokenA", ["TokenA", "TKA"], {
+  const tokenA = await ethers.deployContract("TokenA", [], {
   });
 
   await tokenA.waitForDeployment();

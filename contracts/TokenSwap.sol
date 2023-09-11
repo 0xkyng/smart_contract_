@@ -16,14 +16,14 @@ contract TokenSwap {
 
     mapping (address => LiquidityProvider) liquidityProvider;
 
-    constructor(IERC20 _tokenA, IERC20 _tokenB) {
-        tokenA = _tokenA;
-        tokenB = _tokenB;
+    constructor(address _tokenA, address _tokenB) {
+        tokenA = IERC20(_tokenA);
+        tokenB = IERC20(_tokenB);
     }
 
     function addLiquidity(uint256 _amountA, uint256 _amountB) external {
-        IERC20(tokenA).transferFrom(msg.sender, address(this), _amountA);
-        IERC20(tokenB).transferFrom(msg.sender, address(this), _amountB);
+        tokenA.transferFrom(msg.sender, address(this), _amountA);
+        (tokenB).transferFrom(msg.sender, address(this), _amountB);
         reserveA += _amountA;
         reserveB += _amountB;
         LiquidityProvider storage provider = liquidityProvider[msg.sender];
@@ -33,37 +33,44 @@ contract TokenSwap {
     }
 
     function removeLiquidity(uint _amountA, uint _amountB) external {
-        require(reserveA >= _amountA, "Not enough TokenA in the liquidity pool");
-        require(reserveB >= _amountB, "Not enough TokenB in the liquidity pool");
-
+        LiquidityProvider storage provider = liquidityProvider[msg.sender];
+        require(provider.amountA >= _amountA && provider.amountB >= _amountB, "Insufficient liquidity balance");
         tokenA.transfer(msg.sender, _amountA);
         tokenB.transfer(msg.sender, _amountB);
 
         reserveA -= _amountA;
         reserveB -= _amountB;
+
+        liquidityProvider[msg.sender].amountA -= _amountA;
+        liquidityProvider[msg.sender].amountB -= _amountB; 
     }
 
     function swapAforB(uint _amountA) external {
         require(reserveA >= _amountA, "Not enough TokenA in the liquidity pool");
 
-        uint _amountB = (_amountA * reserveB) / reserveA;
+        uint256 constantK = reserveA * reserveB;
+
+        uint256 amountB = (constantK * _amountA) / ((reserveA + _amountA) * reserveB);
 
         tokenA.transferFrom(msg.sender, address(this), _amountA);
-        tokenB.transfer(msg.sender, _amountB);
+        tokenB.transfer(msg.sender, amountB);
 
         reserveA += _amountA;
-        reserveB -= _amountB;
+        reserveB -= amountB;
     }
 
     function swapBforA(uint _amountB) external {
         require(reserveB >= _amountB, "Not enough TokenB in the liquidity pool");
 
-        uint _amountA = (_amountB * reserveA) / reserveB;
+        
+        uint256 constantK = reserveA * reserveB;
+
+        uint amountA = (constantK * _amountB) / ((reserveB + _amountB) * reserveA);
 
         tokenB.transferFrom(msg.sender, address(this), _amountB);
-        tokenA.transfer(msg.sender, _amountA);
+        tokenA.transfer(msg.sender, amountA);
 
         reserveB += _amountB;
-        reserveA -= _amountA;
+        reserveA -= amountA;
     }
 }
