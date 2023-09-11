@@ -48,7 +48,7 @@ contract TokenSwap {
     function swapAforB(uint _amountA) external {
         uint256 constantK = reserveA * reserveB;
 
-        uint256 amountB = (constantK * _amountA) / ((reserveA + _amountA) * reserveB);
+        uint256 amountB = reserveB - (constantK / (reserveA + _amountA));
 
         require(reserveB >= amountB, "Not enough TokenA in the liquidity pool");
 
@@ -61,7 +61,9 @@ contract TokenSwap {
 
     function swapBforA(uint _amountB) external {
         uint256 constantK = reserveA * reserveB;
-        uint amountA = (constantK * _amountB) / ((reserveB + _amountB) * reserveA);
+
+        uint amountA = reserveA - (constantK / (reserveB + _amountB));
+
         require(reserveA >= amountA, "Not enough TokenB in the liquidity pool");
 
     
