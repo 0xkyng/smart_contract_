@@ -29,27 +29,27 @@ async function main() {
 
 
 
-    // const amountA = ethers.parseEther("70")
-    // const amountB = ethers.parseEther("100")
+    const amountA = ethers.parseEther("70")
+    const amountB = ethers.parseEther("100")
 
     
-    // const swapA = ethers.parseEther("30")
-    // const SwapB = ethers.parseEther("70")
+    const swapA = ethers.parseEther("30")
+    const SwapB = ethers.parseEther("70")
 
-    // await swap.connect(impersonatedSigner).addLiquidity(amountA, amountB)
-    // console.log("Liquidity added");
+    await swap.connect(impersonatedSiger).addLiquidity(amountA, amountB)
+    console.log("Liquidity added");
 
-    // await swap.connect(impersonatedSigner).swapAforB(swapA)
-    // console.log(`balance of tokenB signer after swap: ${await contractB.balanceOf(signer)}`);
+    await swap.connect(impersonatedSiger).swapAforB(swapA)
+    console.log(`balance of tokenB signer after swap: ${await contractB.balanceOf(signer)}`);
 
-    // await swap.connect(impersonatedSigner).swapBforA(swapA);
-    // console.log(`balance of tokenA signer after swap: ${await contractA.balanceOf(signer)}`);
+    await swap.connect(impersonatedSiger).swapBforA(swapA);
+    console.log(`balance of tokenA signer after swap: ${await contractA.balanceOf(signer)}`);
 
-    // await swap.connect(impersonatedSigner).removeLiquidity(amountA, amountB);
-    // console.log("Liquidity removed successfully");
+    await swap.connect(impersonatedSiger).removeLiquidity(amountA, amountB);
+    console.log("Liquidity removed successfully");
 
-    // console.log(`contract balance of tokenA after liquidity removed: ${ethers.formatEther(await contractA.balanceOf(swap))}`);
-    // console.log(`contract balance of tokenB after liquidity removed: ${ethers.formatEther(await contractB.balanceOf(swap))}`);
+    console.log(`contract balance of tokenA after liquidity removed: ${ethers.formatEther(await contractA.balanceOf(swap))}`);
+    console.log(`contract balance of tokenB after liquidity removed: ${ethers.formatEther(await contractB.balanceOf(swap))}`);
  }
 
  main().catch((error) => {
