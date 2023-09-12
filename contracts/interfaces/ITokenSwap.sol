@@ -7,4 +7,3 @@ interface ITokenSwap {
     function swapAforB(uint _amountA) external;
     function swapBforA(uint _amountB) external;
 }
-

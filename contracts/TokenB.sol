@@ -1,10 +1,14 @@
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: SEE LICENSE IN LICENSE
 pragma solidity ^0.8.19;
 
-import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+
 contract TokenB is ERC20 {
-    constructor(string memory name, string memory symbol) ERC20(name, symbol) {
-        // Mint 300 tokens to msg.sender
-        _mint(msg.sender, 300 * 1e18);
+    address public tokenBOwner;
+    uint256 amount = 300 * 1e18;
+
+    constructor() ERC20("TokenB", "TOK") {
+        tokenBOwner = msg.sender;
+        _mint(tokenBOwner, amount);
     }
 }
