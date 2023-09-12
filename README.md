@@ -1,3 +1,3 @@
 # Token swapping
 
-The token swapping contract was depployed at this address: 0xC2019D5De22A4C0dBEEa86a47916F02e8F0c89D0
+The token swapping contract was depployed at this address: 0xE04c7166Da449334C3Ec97F9b9AC414470C8070e
