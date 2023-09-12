@@ -2,10 +2,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
-import "./interfaces/IERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 contract Swap {
-    IERC tokenA;
-    IERC tokenB;
+    IERC20 tokenA;
+    IERC20 tokenB;
 
     uint256 public reserveA;
     uint256 public reserveB;
@@ -21,9 +21,9 @@ contract Swap {
         address _tokenA,
         address _tokenB
     ) {
-        tokenA = IERC(_tokenA);
+        tokenA = IERC20(_tokenA);
 
-        tokenB = IERC(_tokenB);
+        tokenB = IERC20(_tokenB);
     }
 
      function addLiquidity(uint256 _amountA, uint256 _amountB) external {

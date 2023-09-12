@@ -4,12 +4,12 @@ import { ethers, network } from "hardhat";
 async function main() {
     const tokenA = "0xefD273EB55B2218d5688f556F10649e2657d0864"
     const tokenB = "0xE04c7166Da449334C3Ec97F9b9AC414470C8070e"
-    const tokenSwap = "0x3e8A7d591BDe133a0aC6f959a7bceEEa5E9E006A"
+    const tokenSwap = "0xF97bE9651029A11dF9296D590312207d7D71CfCF"
 
     const signer ="0x9cDF5ce3c9Ea71ECC8fb7C3A17ed7B6c74F9C5F0"
 
-    let contractA = await ethers.getContractAt("IERC", tokenA)
-    let contractB = await ethers.getContractAt("IERC", tokenB)
+    let contractA = await ethers.getContractAt("IERC20", tokenA)
+    let contractB = await ethers.getContractAt("IERC20", tokenB)
     const swap = await ethers.getContractAt("ITokenSwap", tokenSwap)
 
     const tokenApproval = ethers.parseEther("100");
@@ -42,18 +42,18 @@ async function main() {
     console.log("Liquidity added");
 
     const swa = await swap.connect(impersonatedSiger).swapAforB(swapA)
-    console.log(swa)
-    console.log("Successfully swapped tokenA for tokenB")
-    console.log(`balance of tokenB signer after swap: ${await contractB.balanceOf(signer)}`);
+    const log = await swa.wait();
+   
+    console.log(`balance of tokenB signer after swap: ${await contractA.balanceOf(impersonatedSiger)}`);
 
     await swap.connect(impersonatedSiger).swapBforA(SwapB);
-    //console.log(`balance of tokenA signer after swap: ${await contractA.balanceOf(signer)}`);
+    console.log(`balance of tokenA signer after swap: ${await contractA.balanceOf(signer)}`);
 
     await swap.connect(impersonatedSiger).removeLiquidity(amountA, amountB);
     console.log("Liquidity removed successfully");
 
-    //console.log(`contract balance of tokenA after liquidity removed: ${ethers.formatEther(await contractA.balanceOf(swap))}`);
-    //console.log(`contract balance of tokenB after liquidity removed: ${ethers.formatEther(await contractB.balanceOf(swap))}`);
+    console.log(`contract balance of tokenA after liquidity removed: ${ethers.formatEther(await contractA.balanceOf(swap))}`);
+    console.log(`contract balance of tokenB after liquidity removed: ${ethers.formatEther(await contractB.balanceOf(swap))}`);
  }
 
  main().catch((error) => {

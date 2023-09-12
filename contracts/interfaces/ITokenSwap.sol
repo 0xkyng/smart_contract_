@@ -6,4 +6,5 @@ interface ITokenSwap {
     function removeLiquidity(uint _amountA, uint _amountB) external;
     function swapAforB(uint _amountA) external;
     function swapBforA(uint _amountB) external;
+    event getSwapAmount(uint amount,bool success);
 }
