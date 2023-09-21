@@ -12,7 +12,7 @@ async function main() {
     let contractB = await ethers.getContractAt("IERC20", tokenB)
     const swap = await ethers.getContractAt("ITokenSwap", tokenSwap)
 
-    const tokenApproval = ethers.parseEther("100");
+    const tokenApproval = ethers.parseEther("10000000");
     console.log(tokenApproval)
 
 
